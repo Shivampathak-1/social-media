@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { PostsContext } from "../context/PostsContext";
+import { useNavigate } from "react-router-dom";
 
 const Upload = () => {
   const { addPost } = useContext(PostsContext);
@@ -9,6 +10,7 @@ const Upload = () => {
   const [tags, setTags] = useState("");
   const [likes, setLikes] = useState(0);
   const [views, setViews] = useState(0);
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,6 +33,9 @@ const Upload = () => {
     setTags("");
     setLikes(0);
     setViews(0);
+
+    alert("Post uploaded successfully!");
+    navigate("/home");
   };
 
   return (

@@ -27,7 +27,7 @@ export default function Navbar() {
               {menuItems.map((item) => (
                 <NavLink
                   key={item}
-                  to={`/${item.toLowerCase()}`}
+                  to={`/${item === "Home" ? "" : item.toLowerCase()}`}
                   className={({ isActive }) =>
                     `py-2 px-4 rounded-md transition ${
                       isActive
@@ -57,7 +57,7 @@ export default function Navbar() {
           <div className="relative">
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="w-10 h-10 rounded-full overflow-hidden"
+              className="w-10 h-10 rounded-full overflow-hidden cursor-pointer"
             >
               <img src={profilePic} alt="Profile" />
             </button>

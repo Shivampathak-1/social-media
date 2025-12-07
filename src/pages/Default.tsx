@@ -1,10 +1,4 @@
-import { useNavigate } from "react-router-dom";
-
 const Default = () => {
-  const navigate = useNavigate();
-  const handleViewPosts = () => {
-    navigate("/home");
-  };
   return (
     <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 sm:px-6 lg:px-8">
       {/* Heading */}
@@ -17,14 +11,6 @@ const Default = () => {
         Explore the latest posts from our community. Engage, react, and stay
         updated with the content that matters to you.
       </p>
-
-      {/* Optional call-to-action button */}
-      <button
-        onClick={handleViewPosts}
-        className="mt-6 bg-amber-400 hover:bg-amber-500 text-white font-medium py-2 px-6 rounded-lg shadow transition duration-200"
-      >
-        View Posts
-      </button>
     </div>
   );
 };
