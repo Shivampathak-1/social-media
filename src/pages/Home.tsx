@@ -1,7 +1,7 @@
 import PostsList from "../components/PostsList";
 import { useContext, useEffect } from "react";
 import { PostsContext } from "../context/PostsContext";
-import Default from "./Default";
+import PostsShimmer from "../components/PostsShimmer";
 
 const Home = () => {
   const { postList, addInitialPost } = useContext(PostsContext);
@@ -14,7 +14,7 @@ const Home = () => {
     fetchPosts();
   }, []);
 
-  return <>{postList.length === 0 ? <Default /> : <PostsList />}</>;
+  return <>{postList.length === 0 ? <PostsShimmer /> : <PostsList />}</>;
 };
 
 export default Home;
