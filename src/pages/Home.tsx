@@ -1,19 +1,11 @@
 import PostsList from "../components/PostsList";
-import { useContext, useEffect } from "react";
-import { PostsContext } from "../context/PostsContext";
+import { useContext } from "react";
+
 import PostsShimmer from "../components/PostsShimmer";
+import { PostsContext } from "../context/PostsContext";
 
 const Home = () => {
-  const { postList, addInitialPost } = useContext(PostsContext);
-  const fetchPosts = async () => {
-    const response = await fetch("https://dummyjson.com/posts");
-    const data = await response.json();
-    addInitialPost(data.posts);
-  };
-  useEffect(() => {
-    fetchPosts();
-  }, []);
-
+  const { postList } = useContext(PostsContext);
   return <>{postList.length === 0 ? <PostsShimmer /> : <PostsList />}</>;
 };
 

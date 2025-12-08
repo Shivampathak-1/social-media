@@ -4,7 +4,8 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Upload from "./pages/Upload";
 import About from "./pages/About";
-import { PostsProvider } from "./context/PostsContext";
+import { PostsProvider } from "./context/PostsProvider";
+import Error from "./pages/Error";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/upload" element={<Upload />} />
             <Route path="/about" element={<About />} />
+            <Route path="*" element={<Error />} />
           </Routes>
         </main>
         <Footer />

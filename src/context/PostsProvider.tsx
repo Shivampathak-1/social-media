@@ -1,20 +1,8 @@
-import { createContext, useReducer } from "react";
+import { useReducer } from "react";
 import type { PropsWithChildren } from "react";
 import type { Post } from "../types/Post.type";
-
-interface PostContextType {
-  postList: Post[];
-  addPost: (newPost: object) => void;
-  addInitialPost: (initialPosts: Post[]) => void;
-  deletePost: (id: number) => void;
-}
-
-export const PostsContext = createContext<PostContextType>({
-  postList: [],
-  addPost: () => {},
-  addInitialPost: () => {},
-  deletePost: () => {},
-});
+import { useEffect } from "react";
+import { PostsContext } from "./PostsContext";
 
 const postReducer = (currPostList: Post[], action: any): Post[] => {
   switch (action.type) {
@@ -31,6 +19,16 @@ const postReducer = (currPostList: Post[], action: any): Post[] => {
 
 export const PostsProvider = ({ children }: PropsWithChildren) => {
   const [postList, dispatchPostList] = useReducer(postReducer, []);
+
+  const fetchPosts = async () => {
+    const response = await fetch("https://dummyjson.com/posts");
+    const data = await response.json();
+    addInitialPost(data.posts);
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
   const addPost = (newPost: object) => {
     dispatchPostList({
@@ -51,9 +49,7 @@ export const PostsProvider = ({ children }: PropsWithChildren) => {
     });
   };
   return (
-    <PostsContext.Provider
-      value={{ postList, addPost, addInitialPost, deletePost }}
-    >
+    <PostsContext.Provider value={{ postList, addPost, deletePost }}>
       {children}
     </PostsContext.Provider>
   );

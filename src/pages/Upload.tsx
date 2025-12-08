@@ -1,16 +1,18 @@
 import { useContext, useState } from "react";
-import { PostsContext } from "../context/PostsContext";
 import { useNavigate } from "react-router-dom";
+import Alert from "@mui/material/Alert";
+import { PostsContext } from "../context/PostsContext";
 
 const Upload = () => {
   const { addPost } = useContext(PostsContext);
-
+  PostsContext;
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [tags, setTags] = useState("");
   const [likes, setLikes] = useState(0);
   const [views, setViews] = useState(0);
   const navigate = useNavigate();
+  const [uploadSuccess, setUploadSuccess] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,7 +26,6 @@ const Upload = () => {
       views,
     };
 
-    console.log("New Post:", newPost);
     addPost(newPost);
 
     // Reset form
@@ -34,13 +35,25 @@ const Upload = () => {
     setLikes(0);
     setViews(0);
 
-    alert("Post uploaded successfully!");
-    navigate("/home");
+    setUploadSuccess(true);
+
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
   };
 
   return (
     <div className="max-w-3xl mx-auto p-6 mt-10 bg-white rounded-xl shadow-lg">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">Upload a Post</h2>
+      {uploadSuccess && (
+        <Alert
+          severity="success"
+          onClose={() => setUploadSuccess(false)}
+          className="mb-4"
+        >
+          Post uploaded successfully!
+        </Alert>
+      )}
 
       <form onSubmit={handleSubmit} className="space-y-5">
         {/* TITLE */}
